@@ -1,8 +1,10 @@
+import githubPastel from "../assets/icons8-github.svg";
 import facebook from "../assets/pastel-facebook.svg";
 import instagram from "../assets/pastel-instagram.svg";
 import linkedin from "../assets/pastel-linkedin-logo.svg";
 import twitter from "../assets/pastel-twitter.svg";
 import youtube from "../assets/pastel-youtube-logo.svg";
+
 export default function Contact() {
   return (
     <section id="contact" className="">
@@ -32,8 +34,12 @@ export default function Contact() {
           >
             <img src={linkedin} alt="" className="w-9 h-9 mx-1" />
           </a>
-          <a href="/">
-            <img src={youtube} alt="" className="w-9 h-9 mx-1" />
+          <a
+            href="https://github.com/adityakanu"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img src={githubPastel} alt="" className="w-9 h-9 mx-1" />
           </a>
           <a href="/">
             <img src={facebook} alt="" className="w-9 h-9 mx-1" />
