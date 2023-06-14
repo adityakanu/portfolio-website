@@ -3,7 +3,7 @@ import Alphabet from "../assets/Alphabet.svg";
 export default function Navbar() {
   return (
     <header className="font-Ysabeau lg:sticky md:sticky t-0 z-10">
-      <div className="container mx-auto flex flex-wrap py-5 flex-col md:flex-row items-center">
+      <div className="container mx-auto flex flex-wrap pb-5 flex-col md:flex-row items-center">
         <a className="font-semibold mb-4 md:m-0">
           <a href="#About" className="logo md:m-0">
             <img className="w-1/3 mx-auto" src={Alphabet} alt="Aditya Kanu" />

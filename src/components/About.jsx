@@ -21,7 +21,7 @@ export default function About() {
         <div>
           <img
             src={Profile}
-            className="lg:max-w-lg lg:w-full md:w-1/1.3 w-6/ md:ml-auto"
+            className="lg:max-w-lg lg:w-full md:w-1/1.3 w-5/6 md:ml-auto"
             alt="Portrait"
           />
         </div>
