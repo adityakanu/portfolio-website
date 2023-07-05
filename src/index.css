@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    margin: 10;
+    padding: 10;
+}
 
 .logo {
     height: 6em;

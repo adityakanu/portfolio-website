@@ -7,16 +7,16 @@ import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 
 function App() {
-  return (
-    <main className="text-gray-900 bg-white body-font">
-      <Navbar />
-      <About />
-      <Education />
-      <Projects />
-      <Skills />
-      <Contact />
-    </main>
-  );
+    return (
+        <main className="px-10 py-5 text-gray-900 bg-white body-font">
+            <Navbar />
+            <About />
+            <Education />
+            <Projects />
+            <Skills />
+            <Contact />
+        </main>
+    );
 }
 
 export default App;
