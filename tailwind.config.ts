@@ -19,8 +19,18 @@ const config = {
     },
     fontFamily: {
       'syne': ["Syne", "sans-serif"],
+      'mont': ["Montserrat", "sans-serif"],
+      'tillana': ["Tillana", "sans-serif"],
     },
     extend: {
+      backgroundImage: {
+        'neo-light': 'linear-gradient(145deg, #e6e6e6, #ffffff)',
+        'neo-dark': 'linear-gradient(145deg,  #252525, #2c2c2c)',
+      },
+      boxShadow: {
+        'neo-shadow-light': '13px 13px 26px #ababab, -13px -13px 26px #ffffff',
+        'neo-shadow-dark': '13px 13px 26px #1b1b1b, -13px -13px 26px #373737',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

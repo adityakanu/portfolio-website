@@ -1,21 +1,12 @@
 'use client'
 
-import { OpenInNewWindowIcon } from '@radix-ui/react-icons'
-import Link from 'next/link'
-import { Button } from '../ui/button'
+import ThemeSwitch from "./ThemeSwitcher"
 
 export default function Nav() {
     return (
-        <nav className="flex mx-auto font-syne text-lg w-full p-4 bg-slate-500/20 rounded-xl items-center ">
-            <div className='flex space-x-6'>
-                <Link href="/about" className='ml-5'>About</Link>
-                <Link href="blog.adityakanu.com">Blog</Link>
-                <Link href="/project">Projects</Link>
-                <Link href="/contact">Contact</Link>
-            </div>
-            <Link href="/resume" className='ml-auto mr-5'>
-                <Button variant="outline">Resume <OpenInNewWindowIcon /> </Button> 
-            </Link>
+        <nav className="flex justify-between items-center px-5 ">
+            <h3 className="text-2xl font-tillana">आ. क.</h3>
+            <div className="rounded-full bg-neo-light dark:bg-neo-dark shadow-neo-shadow-light dark:shadow-neo-shadow-dark  h-12 w-12 flex items-center justify-center "><ThemeSwitch/></div>
         </nav>
     )
 }

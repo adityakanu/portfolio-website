@@ -1,20 +1,20 @@
 'use client'
-import About from "@/components/app/about";
-import { Contact } from "@/components/app/contact";
+import Blog from "@/components/app/blog";
+import Contacts from "@/components/app/contacts";
+import { Experience } from "@/components/app/experience";
 import Hero from "@/components/app/hero";
 import Nav from "@/components/app/nav";
 import Projects from "@/components/app/project";
-import { Separator } from "@radix-ui/react-separator";
 
 export default function Home() {
   return (
-    <main className="p-4">
+    <main className="p-4 md:max-w-screen-md  mx-auto">
       <Nav />
-      {/* <Separator className="my-4" /> */}
       <Hero />
-      <About />
       <Projects />
-      <Contact />
+      <Experience />
+      <Blog />
+      <Contacts />
     </main>
   );
 }
