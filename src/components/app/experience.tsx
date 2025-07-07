@@ -14,15 +14,15 @@ interface Experience {
 
 const experiences: Experience[] = [
     {
-        date: "July 2024",
-        company: "Airports Authority of India, Agartala",
-        position: "Communication, Navigation and Surveillance, Trainee",
-        location: "Agartala, Tripura",
+        date: "Feb 2025 - Present",
+        company: "Zscaler",
+        position: "Intern - Software Development",
+        location: "Bangalore, Karnataka",
         details: [
-            "Analyzed VHF transceiver systems, DVOR, and ILS components, focusing on signal processing and RF propagation.",
-            "Studied ADS-B data protocols, CPDLC messaging formats, and radar signal processing techniques used in modern air traffic management systems.",
-            "Examined X-ray baggage scanner algorithms, ETD chemical detection methods, and automated in-line baggage handling system architectures.",
-            "Investigated VCCS network topology, real-time data processing in Flight Information Display Systems, and integration of multiple sensor inputs for airport operations."
+            "Optimized a critical Kusto (KQL) query on Azure, cutting execution time by over <strong>80%</strong> (from >60s to <12s).",
+            "Utilized Telemetry Pipelines to detect anomalous crashes in real-time, improving Incident response efficiency.",
+            "Collaborated with an 8-member offshore team across India and San Jose to synchronise on sprints goals.",
+            "Debugging log files using WinDBG to investigate root causes of bugs and system failures improving reliability.",
         ]
     },
     {
@@ -36,6 +36,18 @@ const experiences: Experience[] = [
             "Researched optimal encryption techniques & benchmarked our options GoCrypto & Tink for backend data security.",
             "Wrote unit tests and integration tests for all the APIs and Services developed covering a wide range of test cases.",
             "Utilized Docker for isolated testing of individual microservices in the GoLang backend, ensuring successful functionality."
+        ]
+    },
+    {
+        date: "July 2024",
+        company: "Airports Authority of India, Agartala",
+        position: "Communication, Navigation and Surveillance, Trainee",
+        location: "Agartala, Tripura",
+        details: [
+            "Analyzed VHF transceiver systems, DVOR, and ILS components, focusing on signal processing and RF propagation.",
+            "Studied ADS-B data protocols, CPDLC messaging formats, and radar signal processing techniques used in modern air traffic management systems.",
+            "Examined X-ray baggage scanner algorithms, ETD chemical detection methods, and automated in-line baggage handling system architectures.",
+            "Investigated VCCS network topology, real-time data processing in Flight Information Display Systems, and integration of multiple sensor inputs for airport operations."
         ]
     }
 ];
@@ -148,35 +160,35 @@ export function Experience() {
                         onClick={() => setActive(exp)}
                         className="p-4 flex justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
                     >
-                            <div className="">
-                                <motion.h3
-                                    layoutId={`company-${exp.company}-${id}`}
-                                    className="font-medium md:text-lg text-neutral-800 dark:text-neutral-200"
-                                >
-                                    {exp.company}
-                                </motion.h3>
-                                <motion.p
-                                    layoutId={`position-${exp.position}-${id}`}
-                                    className="text-neutral-600 dark:text-neutral-400 "
-                                >
-                                    {exp.position}
-                                </motion.p>
-                            </div>
-                            <div className="flex flex-col items-end">
-                                <motion.p
-                                    layoutId={`location-${exp.location}-${id}`}
-                                    className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-1 hidden md:block"
-                                >
-                                    {exp.location}
-                                </motion.p>
-                                <motion.p
-                                    layoutId={`date-${exp.date}-${id}`}
-                                    className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-1 hidden md:block"
-                                >
-                                    {exp.date}
-                                </motion.p>
-                            </div>
-                        
+                        <div className="">
+                            <motion.h3
+                                layoutId={`company-${exp.company}-${id}`}
+                                className="font-medium md:text-lg text-neutral-800 dark:text-neutral-200"
+                            >
+                                {exp.company}
+                            </motion.h3>
+                            <motion.p
+                                layoutId={`position-${exp.position}-${id}`}
+                                className="text-neutral-600 dark:text-neutral-400 "
+                            >
+                                {exp.position}
+                            </motion.p>
+                        </div>
+                        <div className="flex flex-col items-end">
+                            <motion.p
+                                layoutId={`location-${exp.location}-${id}`}
+                                className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-1 hidden md:block"
+                            >
+                                {exp.location}
+                            </motion.p>
+                            <motion.p
+                                layoutId={`date-${exp.date}-${id}`}
+                                className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-1 hidden md:block"
+                            >
+                                {exp.date}
+                            </motion.p>
+                        </div>
+
                         {/* <motion.button
                             layoutId={`button-${exp.company}-${id}`}
                             className="px-4 py-2 text-sm rounded-full font-bold bg-gray-100 hover:bg-sky-500 hover:text-white text-black"

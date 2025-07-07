@@ -8,11 +8,17 @@ const nextConfig = {
                 port: '',
                 pathname: '/**',
             },
+            {
+                protocol: 'https',
+                hostname: 'api.microlink.io',
+                port: '',
+                pathname: '/**',
+            },
         ],
-        domains: [
-            "api.microlink.io", // Microlink Image Preview
-        ],
+    },
+    experimental: {
+        viewTransition: true,
     },
 };
 
-export default nextConfig;
+module.exports = nextConfig; 

@@ -2,9 +2,13 @@
 
 import { useOutsideClick } from "@/components/hooks/use-outside-click";
 import { Button } from "@/components/ui/button";
+import { LinkPreview } from "@/components/ui/link-preview";
+import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 import { GitHubLogoIcon, Link1Icon, VideoIcon } from "@radix-ui/react-icons";
-import { AnimatePresence, motion } from 'framer-motion';
-import { Link } from "next-view-transitions";
+import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion';
+import Image from "next/image";
+import Link from "next/link";
+import { encode } from "qss";
 import React, { useEffect, useId, useRef, useState } from 'react';
 
 type Project = {
@@ -17,24 +21,170 @@ type Project = {
     details: string[];
 }
 
+// Custom non-clickable preview component
+const ProjectPreview = ({ children, url }: { children: React.ReactNode; url: string }) => {
+    const [isOpen, setOpen] = React.useState(false);
+    const [isMounted, setIsMounted] = React.useState(false);
+
+    React.useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    const springConfig = { stiffness: 100, damping: 15 };
+    const x = useMotionValue(0);
+    const translateX = useSpring(x, springConfig);
+
+    const handleMouseMove = (event: any) => {
+        const targetRect = event.target.getBoundingClientRect();
+        const eventOffsetX = event.clientX - targetRect.left;
+        const offsetFromCenter = (eventOffsetX - targetRect.width / 2) / 2; // Reduce the effect to make it subtle
+        x.set(offsetFromCenter);
+    };
+
+    const params = encode({
+        url,
+        screenshot: true,
+        meta: false,
+        embed: "screenshot.url",
+        colorScheme: "dark",
+        "viewport.isMobile": true,
+        "viewport.deviceScaleFactor": 1,
+        "viewport.width": 600,
+        "viewport.height": 375,
+    });
+    const src = `https://api.microlink.io/?${params}`;
+
+    return (
+        <>
+            {isMounted ? (
+                <div className="hidden">
+                    <Image
+                        src={src}
+                        width={200}
+                        height={125}
+                        quality={50}
+                        priority={true}
+                        alt="hidden image"
+                    />
+                </div>
+            ) : null}
+
+            <HoverCardPrimitive.Root
+                openDelay={50}
+                closeDelay={100}
+                onOpenChange={(open) => {
+                    setOpen(open);
+                }}
+            >
+                <HoverCardPrimitive.Trigger 
+                    className="block w-full"
+                    onMouseMove={handleMouseMove}
+                >
+                    {children}
+                </HoverCardPrimitive.Trigger>
+
+                <HoverCardPrimitive.Content
+                    className="[transform-origin:var(--radix-hover-card-content-transform-origin)]"
+                    side="top"
+                    align="center"
+                    sideOffset={10}
+                >
+                    <AnimatePresence>
+                        {isOpen && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20, scale: 0.6 }}
+                                animate={{
+                                    opacity: 1,
+                                    y: 0,
+                                    scale: 1,
+                                    transition: {
+                                        type: "spring",
+                                        stiffness: 260,
+                                        damping: 20,
+                                    },
+                                }}
+                                exit={{ opacity: 0, y: 20, scale: 0.6 }}
+                                className="shadow-xl rounded-xl"
+                                style={{
+                                    x: translateX,
+                                }}
+                            >
+                                <div className="block p-1 bg-white border-2 border-transparent shadow rounded-xl">
+                                    <Image
+                                        src={src}
+                                        width={200}
+                                        height={125}
+                                        quality={50}
+                                        priority={true}
+                                        className="rounded-lg"
+                                        alt="preview image"
+                                    />
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </HoverCardPrimitive.Content>
+            </HoverCardPrimitive.Root>
+        </>
+    );
+};
+
 const projects: Project[] = [
     {
-        date: "Jul '24",
-        title: "NITA Placement Connect",
-        category: "Software Development",
-        live: "https://nita-placement-connect.vercel.app/",
-        youtube: "https://youtu.be/2eJ7_YMAO_I",
+        date: "Jul '25",
+        title: "Memphi UI - A shadcn component library",
+        category: "Frontend",
+        live: "https://memphi.dev/",
+        github: "https://github.com/adityakanu/memphi-ui",
+        details: [
+            "Developed Memphi UI, a themed React/Tailwind component library with Memphis, doodle, and neobrutalist aesthetics.",
+            "Wrote scripts to auto-generate component registry files compatible with the shadcn CLI, enabling one-line installs.",
+            "Deployed the registry and documentation to Vercel, enabling live previews and \"Open in v0\" support.",
+        ]
+    },
+    {
+        date: "Apr '25",
+        title: "Ambinest - Ambient Sound Web App",
+        category: "Frontend",
+        live: "https://ambinest.adityakanu.com",
+        youtube: "https://youtu.be/ambinest-demo",
+        details: [
+            "Designed and developed a visually immersive ambient sound web app with a focus on minimalist UI/UX.",
+            "Ranked <strong>29th</strong> on Peerlist and <strong>35th</strong> on Product Hunt (out of 500+ daily entries), with 100+ organic users in the first week of launch.",
+            "Built using Next.js, TypeScript, and Web Audio API for high-quality audio processing and playback.",
+            "Demonstrated strong community traction with exceptional user engagement metrics.",
+        ]
+    },
+    {
+        date: "May '24",
+        title: "NITA Placement Connect - On-Campus Placement Portal",
+        category: "Full Stack",
+        live: "https://nita-placement-connect.vercel.app",
+        youtube: "https://youtu.be/nita-placement-demo",
         details: [
             "On-Campus Placement Portal, reducing manual entry errors by an <strong>≈87%</strong> compared to traditional Google Forms.",
             "Implemented role-based access control, enabling secure data management for admins, coordinators, and students.",
-            "Using MongoDB’s aggregation framework, reduced the time to generate various student reports by <strong>≈70%</strong>.",
+            "Using MongoDB's aggregation framework, reduced the time to generate various student reports by <strong>≈70%</strong>.",
             "Contributed to frontend and backend, collaborating with my team using Git and deploying it on Vercel and Render.",
+        ]
+    },
+    {
+        date: "May '25",
+        title: "AroSneha - AI-Powered Health Companion",
+        category: "Full Stack",
+        live: "https://arosneha.vercel.app",
+        youtube: "https://youtu.be/arosneha-demo",
+        details: [
+            "Engineered an end-to-end personal health platform to parse medical reports and deliver contextual AI insights.",
+            "Built the MVP in 6 hours with a focus on modular architecture, enabling future expansion into doctor collaboration.",
+            "Developed using Next.js, Supabase, OpenRouter, and TypeScript for a robust and scalable solution.",
+            "Implemented AI-powered analysis capabilities for medical report interpretation and health recommendations.",
         ]
     },
     {
         date: "Feb '24",
         title: "Issue Tracker and Log Ingestor",
-        category: "Software Development",
+        category: "Full Stack",
         github: "https://github.com/adityakanu/Log-Ingestor-with-Query-Interface",
         youtube: "https://youtu.be/bKpkh2cvIAo",
         details: [
@@ -43,40 +193,7 @@ const projects: Project[] = [
             "The throughput as observed on load test with 100 virtual users over 1 minute, averaged around <strong>46 requests/sec</strong>.",
             "The system demonstrated its peak throughput, reaching up to <strong>90 requests/sec</strong> during the test."
         ]
-    },
-    {
-        date: "Jan '24",
-        title: "npm i create-react-tail",
-        category: "Software Development",
-        github: "https://github.com/adityakanu/create-react-tail",
-        youtube: "https://youtu.be/bKpkh2cvIAo",
-        details: [
-            "Built a command-line interface(CLI) tool using Vite.js to automate React with Tailwind project initialization.",
-            "Commands for usage: <code><strong> npm i create-react-tail </strong></code> and <code><strong> npx create-react-tail </strong></code>",
-            "Reduced initial setup time from 6-10 minutes to a single command i.e. <strong>≈90% improvement in developer efficiency</strong>.",
-        ]
-    },
-    {
-        date: "Nov '23",
-        title: "Efficient Solar Tracker",
-        category: "Electronics",
-        github: "https://github.com/adityakanu/Sun-Tracking-Solar-Panel",
-        youtube: "https://drive.google.com/file/d/1frltAbsYjo3rVHL5WJbuG5jVyg7E93tY/view?usp=sharing",
-        details: [
-            "Developed solar panel sun tracking system utilizing light dependent resistors (LDRs), Arduino nano microcontroller, and servo motor to optimize solar energy absorption",
-            "Designed and implemented a precise and automated mechanism that dynamically adjusts solar panel orientation to maximize sun exposure, <strong>enhancing energy absorption by ≈34%.</strong>",
-        ]
-    },
-    {
-        date: "Nov '23",
-        title: "Displacement Measurement of Iron Piece",
-        category: "Electronics",
-        github: "https://drive.google.com/file/d/1eDwtlPZ_5SIZnwahU28HFu54hxbT093c/view?usp=sharing",
-        details: [
-            "Engineered a versatile displacement measurement solution that harnesses Maxwell Bridge to measure the inductance of the Solenoid within which the iron piece is placed, facilitating accurate and dynamic measurement of its displacement within the Solenoid with seamless integration into various projects.",
-            "Used Precision Full Wave Rectifier to convert the AC signals to DC to use Arduino Nano to display the displacement in centimetres via Smartphone or Computer.",
-        ]
-    },
+    }
 ];
 
 export default function Projects() {
@@ -113,7 +230,7 @@ export default function Projects() {
             <h2 className="font-syne font-bold text-4xl mb-6">Projects</h2>
             <div className="max-w-2xl mx-auto w-full p-4">
                 <div className="flex space-x-2 mb-6 font-mont">
-                    {["All", "Software Development", "Electronics"].map((tab) => (
+                    {["All", "Frontend", "Full Stack"].map((tab) => (
                         <Button
                             key={tab}
                             variant={activeTab === tab ? "destructive" : "ghost"}
@@ -124,34 +241,45 @@ export default function Projects() {
                     ))}
                 </div>
                 <div className=" font-mont">
-                    {filteredProjects.map((project, index) => (
-                        <motion.div
-                            layoutId={`card-${project.title}-${id}`}
-                            key={`card-${project.title}-${id}`}
-                            onClick={() => setActive(project)}
-                            className="flex items-center space-x-4 p-1 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
-                        >
-                            <motion.span layoutId={`date-${project.title}-${id}`} className="text-sm text-gray-500 md:w-16 md:block hidden">{project.date}</motion.span>
-                            <motion.span layoutId={`title-${project.title}-${id}`} className="font-medium flex-grow">{project.title}</motion.span>
-                            <div className="flex space-x-2">
-                                {project.github && (
-                                    <Link href={project.github} target="_blank" className="text-gray-500 hover:text-gray-700">
-                                        <GitHubLogoIcon className="h-5 w-5" />
-                                    </Link>
-                                )}
-                                {project.youtube && (
-                                    <Link href={project.youtube} target="_blank" className="text-gray-500 hover:text-gray-700">
-                                        <VideoIcon className="h-5 w-5" />
-                                    </Link>
-                                )}
-                                {project.live && (
-                                    <Link href={project.live} target="_blank" className="text-gray-500 hover:text-gray-700">
-                                        <Link1Icon className="h-5 w-5" />
-                                    </Link>
-                                )}
-                            </div>
-                        </motion.div>
-                    ))}
+                    {filteredProjects.map((project, index) => {
+                        const previewUrl = project.live || project.github;
+                        const ProjectRow = (
+                            <motion.div
+                                layoutId={`card-${project.title}-${id}`}
+                                key={`card-${project.title}-${id}`}
+                                onClick={() => setActive(project)}
+                                className="flex items-center space-x-4 p-1 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+                            >
+                                <motion.span layoutId={`date-${project.title}-${id}`} className="text-sm text-gray-500 md:w-16 md:block hidden">{project.date}</motion.span>
+                                <motion.span layoutId={`title-${project.title}-${id}`} className="font-medium flex-grow">
+                                    {project.title}
+                                </motion.span>
+                                <div className="flex space-x-2">
+                                    {project.github && (
+                                        <Link href={project.github} target="_blank" className="text-gray-500 hover:text-gray-700" onClick={(e) => e.stopPropagation()}>
+                                            <GitHubLogoIcon className="h-5 w-5" />
+                                        </Link>
+                                    )}
+                                    {project.youtube && (
+                                        <Link href={project.youtube} target="_blank" className="text-gray-500 hover:text-gray-700" onClick={(e) => e.stopPropagation()}>
+                                            <VideoIcon className="h-5 w-5" />
+                                        </Link>
+                                    )}
+                                    {project.live && (
+                                        <Link href={project.live} target="_blank" className="text-gray-500 hover:text-gray-700" onClick={(e) => e.stopPropagation()}>
+                                            <Link1Icon className="h-5 w-5" />
+                                        </Link>
+                                    )}
+                                </div>
+                            </motion.div>
+                        );
+
+                        return previewUrl ? (
+                            <ProjectPreview key={`preview-${project.title}-${id}`} url={previewUrl}>
+                                {ProjectRow}
+                            </ProjectPreview>
+                        ) : ProjectRow;
+                    })}
                 </div>
             </div>
 

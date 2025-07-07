@@ -1,6 +1,6 @@
 'use client'
 import { ArrowRightIcon, CalendarIcon } from "@radix-ui/react-icons"
-import { Link } from "next-view-transitions"
+import Link from "next/link"
 import { useEffect, useState } from 'react'
 import { LinkPreview } from "../ui/link-preview"
 

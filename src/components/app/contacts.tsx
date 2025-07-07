@@ -1,7 +1,7 @@
 'use client'
 
 import { CommitIcon, EnvelopeClosedIcon, GitHubLogoIcon, LinkedInLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import { Separator } from "../ui/separator";
 
 export default function Contacts() {

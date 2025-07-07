@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { ViewTransitions } from 'next-view-transitions';
 import { Inter, Montserrat, Syne, Tillana } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
@@ -20,14 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ViewTransitions>
-      <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
         <Providers>
-          <body className={inter.className}>
-            {children}
-          </body>
+          {children}
         </Providers>
-      </html>
-    </ViewTransitions>
+      </body>
+    </html>
   );
 }
