@@ -32,9 +32,9 @@ export default function SpotifyPlaylist() {
             }}
           />
           
-          {/* Right blob - peeks out from right side */}
+          {/* Right blob - peeks out from right side - hidden on mobile */}
           <div 
-            className={`absolute -right-96 -top-32 w-72 h-72 rounded-full transition-all duration-[4000ms] ease-in-out grainy-blob ${
+            className={`absolute -right-96 -top-32 w-72 h-72 rounded-full transition-all duration-[4000ms] ease-in-out grainy-blob hidden md:block ${
               isAnimating ? 'animate-blob-2' : ''
             }`}
             style={{
