@@ -5,6 +5,7 @@ import { Experience } from "@/components/app/experience";
 import Hero from "@/components/app/hero";
 import Nav from "@/components/app/nav";
 import Projects from "@/components/app/project";
+import SpotifyPlaylist from "@/components/app/spotify-playlist";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Projects />
       <Experience />
       <Blog />
+      <SpotifyPlaylist />
       <Contacts />
     </main>
   );
