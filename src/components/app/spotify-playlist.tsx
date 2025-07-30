@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 export default function SpotifyPlaylist() {
-  const playlistId = '6fbWWJtEhmCBXcko2Df0jk';
+  const playlistId = '2HqTHt83XZuPWr4GeRL2rm';
   const [isAnimating, setIsAnimating] = useState(false);
 
   // Simulate music playing detection (since we can't actually detect from iframe)
