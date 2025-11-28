@@ -1,13 +1,16 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { Inter, Montserrat, Syne, Tillana } from "next/font/google";
+import { Inter, Merriweather } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import { Analytics } from "@vercel/analytics/next";
 
-const inter = Inter({ subsets: ["latin"] });
-const montserrat = Montserrat({ subsets: ["latin"] });
-const syne = Syne({ subsets: ["latin"] });
-const tillana = Tillana({ weight: "500", subsets: ["devanagari"] });
+const inter = Inter({ subsets: ["latin"], variable: '--font-sans' });
+const merriweather = Merriweather({
+  weight: ["300", "400", "700", "900"],
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: '--font-serif'
+});
 
 export const metadata: Metadata = {
   title: "Aditya Kanu",
@@ -21,8 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <Analytics/>
+      <body className={`${inter.variable} ${merriweather.variable} font-sans antialiased bg-background text-foreground relative min-h-screen`}>
+        {/* Grain Texture Overlay */}
+        <div className="fixed inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay z-[9999]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' }}></div>
+        <Analytics />
         <Providers>
           {children}
         </Providers>

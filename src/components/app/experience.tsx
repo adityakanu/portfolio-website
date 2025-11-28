@@ -14,40 +14,40 @@ interface Experience {
 
 const experiences: Experience[] = [
     {
-        date: "Feb 2025 - Present",
+        date: "Aug 2025 - Present",
+        company: "Zscaler",
+        position: "Associate Software Development Engineer",
+        location: "Remote, India",
+        details: [
+            "Building CLI tools <strong>automating cloud operations</strong>, reducing manual workflows and deployment time by over <strong>30%</strong>.",
+            "Automating large-scale infrastructure testing using <strong>k6</strong>, enhancing system reliability and scalability benchmarks.",
+            "Standardized infrastructure code by refactoring multi-language scripts into a single <strong>Golang</strong> codebase, improving maintainability across testing and deployment pipelines.",
+            "Automating end-to-end workflows using <strong>Playwright</strong>, enhancing testing coverage and operational efficiency."
+        ]
+    },
+    {
+        date: "Feb 2025 - Aug 2025",
         company: "Zscaler",
         position: "Intern - Software Development",
         location: "Bangalore, Karnataka",
         details: [
-            "Optimized a critical Kusto (KQL) query on Azure, cutting execution time by over <strong>80%</strong> (from >60s to <12s).",
-            "Utilized Telemetry Pipelines to detect anomalous crashes in real-time, improving Incident response efficiency.",
+            "Optimized a critical <strong>Kusto (KQL)</strong> query on <strong>Azure</strong>, cutting execution time by over <strong>80%</strong> (from >60s to <12s).",
+            "Utilized <strong>Telemetry Pipelines</strong> to detect anomalous crashes in real-time, improving Incident response efficiency.",
             "Collaborated with an 8-member offshore team across India and San Jose to synchronise on sprints goals.",
-            "Debugging log files using WinDBG to investigate root causes of bugs and system failures improving reliability.",
+            "Debugging log files using <strong>WinDBG</strong> to investigate root causes of bugs and system failures improving reliability.",
         ]
     },
     {
-        date: "March 2024 - July 2024",
+        date: "Mar 2024 - Jul 2024",
         company: "Qrit",
         position: "Backend SDE Intern (GoLang)",
         location: "Remote",
         details: [
-            "Implemented authentication flow using Google auth, & thoroughly tested it with various edge cases using Postman.",
-            "Enhanced security by integrating session management using Gorilla/session library preventing unauthorized access.",
+            "Implemented authentication flow using <strong>Google auth</strong>, & thoroughly tested it with various edge cases using <strong>Postman</strong>.",
+            "Enhanced security by integrating session management using <strong>Gorilla/session</strong> library preventing unauthorized access.",
             "Researched optimal encryption techniques & benchmarked our options GoCrypto & Tink for backend data security.",
-            "Wrote unit tests and integration tests for all the APIs and Services developed covering a wide range of test cases.",
-            "Utilized Docker for isolated testing of individual microservices in the GoLang backend, ensuring successful functionality."
-        ]
-    },
-    {
-        date: "July 2024",
-        company: "Airports Authority of India, Agartala",
-        position: "Communication, Navigation and Surveillance, Trainee",
-        location: "Agartala, Tripura",
-        details: [
-            "Analyzed VHF transceiver systems, DVOR, and ILS components, focusing on signal processing and RF propagation.",
-            "Studied ADS-B data protocols, CPDLC messaging formats, and radar signal processing techniques used in modern air traffic management systems.",
-            "Examined X-ray baggage scanner algorithms, ETD chemical detection methods, and automated in-line baggage handling system architectures.",
-            "Investigated VCCS network topology, real-time data processing in Flight Information Display Systems, and integration of multiple sensor inputs for airport operations."
+            "Wrote <strong>unit tests and integration tests</strong> for all the APIs and Services developed covering a wide range of test cases.",
+            "Utilized <strong>Docker</strong> for isolated testing of individual microservices in the GoLang backend, ensuring successful functionality."
         ]
     }
 ];
@@ -78,7 +78,7 @@ export function Experience() {
 
     return (
         <main className="p-4 flex flex-col mt-10">
-            <h2 className="font-syne font-bold text-4xl mb-6">Experiences</h2>
+            <h2 className="font-serif font-bold text-4xl mb-6">Experience</h2>
             <AnimatePresence>
                 {active && (
                     <motion.div
@@ -104,13 +104,13 @@ export function Experience() {
                             <CloseIcon />
                         </motion.button>
                         <motion.div
-                            layoutId={`card-${active.company}-${id}`}
+                            layoutId={`card-${active.company}-${active.position}-${id}`}
                             ref={ref}
-                            className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+                            className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-background border-2 border-border shadow-neobrutal-lg sm:rounded-3xl overflow-hidden"
                         >
                             <div className="p-6">
                                 <motion.h3
-                                    layoutId={`company-${active.company}-${id}`}
+                                    layoutId={`company-${active.company}-${active.position}-${id}`}
                                     className="font-bold text-2xl text-neutral-800 dark:text-neutral-200 mb-2"
                                 >
                                     {active.company}
@@ -142,7 +142,7 @@ export function Experience() {
                                 >
                                     <ul className="list-disc pl-5 space-y-2">
                                         {active.details.map((detail, index) => (
-                                            <li key={index}>{detail}</li>
+                                            <li key={index} dangerouslySetInnerHTML={{ __html: detail }} />
                                         ))}
                                     </ul>
                                 </motion.div>
@@ -155,14 +155,20 @@ export function Experience() {
             <ul className="max-w-2xl mx-auto w-full space-y-4">
                 {experiences.map((exp, index) => (
                     <motion.div
-                        layoutId={`card-${exp.company}-${id}`}
-                        key={`card-${exp.company}-${id}`}
+                        layoutId={`card-${exp.company}-${exp.position}-${id}`}
+                        key={`card-${exp.company}-${exp.position}-${id}`}
                         onClick={() => setActive(exp)}
-                        className="p-4 flex justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+                        whileHover={{
+                            x: 2,
+                            y: 2,
+                            boxShadow: "0px 0px 0px 0px transparent"
+                        }}
+                        transition={{ duration: 0.2 }}
+                        className="p-4 flex justify-between items-center bg-card border-2 border-border shadow-neobrutal rounded-xl cursor-pointer"
                     >
                         <div className="">
                             <motion.h3
-                                layoutId={`company-${exp.company}-${id}`}
+                                layoutId={`company-${exp.company}-${exp.position}-${id}`}
                                 className="font-medium md:text-lg text-neutral-800 dark:text-neutral-200"
                             >
                                 {exp.company}

@@ -22,29 +22,27 @@ export default function SpotifyPlaylist() {
         {/* Animated background blobs positioned around the card */}
         <div className="absolute inset-0 overflow-visible pointer-events-none">
           {/* Left blob - peeks out from left side */}
-          <div 
-            className={`absolute -left-10 top-12 w-80 h-80 rounded-full transition-all duration-[3000ms] ease-in-out grainy-blob ${
-              isAnimating ? 'animate-blob-1' : ''
-            }`}
+          <div
+            className={`absolute -left-10 top-12 w-80 h-80 rounded-full transition-all duration-[3000ms] ease-in-out grainy-blob ${isAnimating ? 'animate-blob-1' : ''
+              }`}
             style={{
               background: 'linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1)',
               filter: 'blur(60px)',
             }}
           />
-          
+
           {/* Right blob - peeks out from right side - hidden on mobile */}
-          <div 
-            className={`absolute -right-96 -top-32 w-72 h-72 rounded-full transition-all duration-[4000ms] ease-in-out grainy-blob hidden md:block ${
-              isAnimating ? 'animate-blob-2' : ''
-            }`}
+          <div
+            className={`absolute -right-96 -top-32 w-72 h-72 rounded-full transition-all duration-[4000ms] ease-in-out grainy-blob hidden md:block ${isAnimating ? 'animate-blob-2' : ''
+              }`}
             style={{
               background: 'linear-gradient(225deg, #96ceb4, #feca57, #ff9a9e)',
               filter: 'blur(50px)',
             }}
           />
-          
+
           {/* Center blob - mostly behind card */}
-            {/* <div 
+          {/* <div 
               className={`absolute -top-20 left-1/2 transform -translate-x-1/2 w-96 h-96 rounded-full transition-all duration-[5000ms] ease-in-out grainy-blob ${
                 isAnimating ? 'animate-blob-3' : ''
               }`}
@@ -53,7 +51,7 @@ export default function SpotifyPlaylist() {
                 filter: 'blur(70px)',
               }}
             /> */}
-          
+
           {/* Bottom blob - behind card */}
           {/* <div 
             className={`absolute top-16 left-1/4 w-64 h-64 rounded-full transition-all duration-[6000ms] ease-in-out grainy-blob ${
@@ -66,12 +64,12 @@ export default function SpotifyPlaylist() {
           /> */}
         </div>
 
-        <div className="glass-card rounded-xl p-6 relative z-10 overflow-hidden">
-          <h3 className="font-syne font-semibold text-xl mb-4 text-center relative z-10">
+        <div className="bg-card border-2 border-border shadow-neobrutal-lg rounded-xl p-6 relative z-10 overflow-hidden">
+          <h3 className="font-serif font-semibold text-xl mb-4 text-center relative z-10 text-foreground">
             My Music Recommendations
           </h3>
-          
-          <div className="rounded-lg overflow-hidden relative z-10 glass-iframe-container">
+
+          <div className="rounded-lg overflow-hidden relative z-10 border-2 border-border">
             <iframe
               title="Spotify Embed: Recommendation Playlist"
               src={`https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=0`}
@@ -83,7 +81,7 @@ export default function SpotifyPlaylist() {
               className="rounded-lg"
             />
           </div>
-          
+
           {/* Music visualization indicator */}
           {isAnimating && (
             <div className="absolute top-4 right-4 flex space-x-1 z-20">

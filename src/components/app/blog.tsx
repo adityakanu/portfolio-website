@@ -63,7 +63,7 @@ export default function Blog() {
 
     return (
         <main className="p-4 flex flex-col mt-10">
-            <h2 className="font-syne font-bold text-4xl">Blogs</h2>
+            <h2 className="font-serif font-bold text-4xl">Blogs</h2>
             <div className="container mx-auto px-4 mt-4">
                 {loading ? (
                     <p>Loading blogs...</p>
@@ -72,14 +72,14 @@ export default function Blog() {
                         <ul className="space-y-8">
                             {blogs.slice(0, 8).map((blog) => (
                                 <li key={blog.slug} className="">
-                                    <Link href={`https://blog.adityakanu.com/${blog.slug}`} target="_blank" className="block p-6">
-                                        <h3 className="text-xl font-semibold mb-2 text-gray-800 hover:text-foreground transition-colors">
+                                    <Link href={`https://blog.adityakanu.com/${blog.slug}`} target="_blank" className="block p-6 bg-card border-2 border-border shadow-neobrutal hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none rounded-xl transition-all">
+                                        <h3 className="text-xl font-semibold mb-2 text-foreground">
                                             <LinkPreview url={`https://blog.adityakanu.com/${blog.slug}`} >
                                                 {blog.title}
                                             </LinkPreview>
                                         </h3>
                                         {/* <p className="text-gray-600 mb-4">{blog.brief}</p> */}
-                                        <div className="flex items-center text-sm text-gray-500">
+                                        <div className="flex items-center text-sm text-muted-foreground">
                                             <CalendarIcon className="w-4 h-4 mr-2" />
                                             <span>{new Date(blog.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                                         </div>

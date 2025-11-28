@@ -76,7 +76,7 @@ const ProjectPreview = ({ children, url }: { children: React.ReactNode; url: str
                     setOpen(open);
                 }}
             >
-                <HoverCardPrimitive.Trigger 
+                <HoverCardPrimitive.Trigger
                     className="block w-full"
                     onMouseMove={handleMouseMove}
                 >
@@ -180,19 +180,6 @@ const projects: Project[] = [
             "Developed using Next.js, Supabase, OpenRouter, and TypeScript for a robust and scalable solution.",
             "Implemented AI-powered analysis capabilities for medical report interpretation and health recommendations.",
         ]
-    },
-    {
-        date: "Feb '24",
-        title: "Issue Tracker and Log Ingestor",
-        category: "Full Stack",
-        github: "https://github.com/adityakanu/Log-Ingestor-with-Query-Interface",
-        youtube: "https://youtu.be/bKpkh2cvIAo",
-        details: [
-            "Built a webapp to insert issues to Org’s issue management infra, implementing both API and UI options to insert logs.",
-            "Implemented a modern technology stack to manage the entire log lifecycle, including React, Express, and MongoDB.",
-            "The throughput as observed on load test with 100 virtual users over 1 minute, averaged around <strong>46 requests/sec</strong>.",
-            "The system demonstrated its peak throughput, reaching up to <strong>90 requests/sec</strong> during the test."
-        ]
     }
 ];
 
@@ -227,20 +214,27 @@ export default function Projects() {
 
     return (
         <main className="p-4 flex flex-col mt-10">
-            <h2 className="font-syne font-bold text-4xl mb-6">Projects</h2>
+            <h2 className="font-serif font-bold text-4xl mb-6">Projects</h2>
             <div className="max-w-2xl mx-auto w-full p-4">
-                <div className="flex space-x-2 mb-6 font-mont">
+                <div className="flex space-x-2 mb-6 font-sans">
                     {["All", "Frontend", "Full Stack"].map((tab) => (
                         <Button
                             key={tab}
-                            variant={activeTab === tab ? "destructive" : "ghost"}
+                            variant="ghost"
+                            className={`
+                                border-2 border-border font-bold transition-all
+                                ${activeTab === tab
+                                    ? "bg-primary text-primary-foreground shadow-neobrutal-sm translate-x-[2px] translate-y-[2px] shadow-none"
+                                    : "bg-background hover:bg-secondary hover:text-secondary-foreground shadow-neobrutal-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
+                                }
+                            `}
                             onClick={() => setActiveTab(tab)}
                         >
                             {tab}
                         </Button>
                     ))}
                 </div>
-                <div className=" font-mont">
+                <div className=" font-sans">
                     {filteredProjects.map((project, index) => {
                         const previewUrl = project.live || project.github;
                         const ProjectRow = (
@@ -248,7 +242,13 @@ export default function Projects() {
                                 layoutId={`card-${project.title}-${id}`}
                                 key={`card-${project.title}-${id}`}
                                 onClick={() => setActive(project)}
-                                className="flex items-center space-x-4 p-1 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+                                whileHover={{
+                                    x: 2,
+                                    y: 2,
+                                    boxShadow: "0px 0px 0px 0px transparent"
+                                }}
+                                transition={{ duration: 0.2 }}
+                                className="flex items-center space-x-4 p-4 bg-card border-2 border-border shadow-neobrutal rounded-xl cursor-pointer mb-4"
                             >
                                 <motion.span layoutId={`date-${project.title}-${id}`} className="text-sm text-gray-500 md:w-16 md:block hidden">{project.date}</motion.span>
                                 <motion.span layoutId={`title-${project.title}-${id}`} className="font-medium flex-grow">
@@ -311,7 +311,7 @@ export default function Projects() {
                         <motion.div
                             layoutId={`card-${active.title}-${id}`}
                             ref={ref}
-                            className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+                            className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-background border-2 border-border shadow-neobrutal-lg sm:rounded-3xl overflow-hidden"
                         >
                             <div className="p-6">
                                 <motion.h3
